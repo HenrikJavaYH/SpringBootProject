@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registrera användare</title>
+</head>
+<body>
+<h1>Registrering</h1>
+<form th:action="@{/register}" th:object="${appuser}" method="post">
+    <input type="text" th:field="*{username}" placeholder="Användarnamn" />
+    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+
+    <input type="text" th:field="*{role}" placeholder="Roll" />
+    <div th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
+
+    <input type="password" th:field="*{password}" placeholder="Lösenord" />
+    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+
+    <label>
+        <input type="checkbox" th:field="*{consentGiven}" /> Jag samtycker till datalagring
+    </label>
+
+    <br/>
+    <button type="submit">Registrera</button>
+</form>
+</body>
+</html>

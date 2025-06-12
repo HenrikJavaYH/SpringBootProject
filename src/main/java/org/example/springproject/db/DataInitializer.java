@@ -23,7 +23,7 @@ public class DataInitializer {
             user.setUsername("admin");
             user.setRole("ADMIN");
             //Lösenord hashas
-            user.setPassword(passwordEncoder.encode("admin"));
+            user.setPassword(passwordEncoder.encode("adminpass"));
             appUserRepository.save(user);
         }
     }
