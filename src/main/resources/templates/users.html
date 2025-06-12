@@ -23,7 +23,7 @@
     <td th:text="${appuser.role}"></td>
     <td th:text="${appuser.consentGiven}"></td>
     <td>
-      <form th:action="@{'/appusers/delete/' + ${appuser.id}}" method="post">
+      <form th:action="@{'/users/delete/' + ${appuser.id}}" method="post">
         <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
         <button type="submit">Radera</button>
       </form>

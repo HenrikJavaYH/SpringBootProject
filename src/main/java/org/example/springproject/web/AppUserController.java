@@ -7,9 +7,9 @@ import org.example.springproject.service.AppUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class AppUserController {
@@ -40,5 +40,16 @@ public class AppUserController {
         return "success";
     }
 
-    //CONTROLLER VIEW PDF
+    @GetMapping("/users")
+    public String getAllUsers(Model model) {
+        List<AppUser> users = appUserService.getAll();
+        model.addAttribute("appusers", users);
+        return "users";
+    }
+
+    @PostMapping("/users/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        appUserService.deleteById(id);
+        return "redirect:/users";
+    }
 }
