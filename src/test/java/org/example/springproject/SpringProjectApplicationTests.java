@@ -42,9 +42,9 @@ class SpringProjectApplicationTests {
         mockMvc.perform(post("/register")
                         .with(csrf())
                         .param("username", "newuser")
-                        .param("password", "Abcd12!@") // ✅ Valideringsgodkänt lösenord
+                        .param("password", "Abcd12!@") // Valideringsgodkänt lösenord
                         .param("role", "newrole")
-                        .param("consentGiven", "true")) // ✅ om du kräver detta i formuläret
+                        .param("consentGiven", "true")) // om du kräver detta i formuläret
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/success"));
     }
@@ -55,9 +55,9 @@ class SpringProjectApplicationTests {
         mockMvc.perform(post("/register")
                         .with(csrf())
                         .param("username", "newuser")
-                        .param("password", "Anka") // ✅ Valideringsgodkänt lösenord
+                        .param("password", "Anka") // Valideringsgodkänt lösenord
                         .param("role", "newrole")
-                        .param("consentGiven", "true")) // ✅ om du kräver detta i formuläret
+                        .param("consentGiven", "true")) // om du kräver detta i formuläret
                 .andExpect(view().name("register")); // still on same page
     }
 
@@ -87,12 +87,25 @@ class SpringProjectApplicationTests {
         assertNull(deleted);
     }
 
-
-    /*@Test
+    @Test
     void testSuccessfulLogin() throws Exception {
-        mockMvc.perform(formLogin().user("admin").password("adminpass"))
+        // Skapa användare i databasen
+        AppUserDTO dto = new AppUserDTO();
+        dto.setUsername("loginuser");
+        dto.setPassword("Abcd12!@"); // Valideringsgodkänt
+        dto.setRole("USER");
+        dto.setConsentGiven(true);
+        appUserService.save(dto);
+
+        // Utför login
+        mockMvc.perform(formLogin().user("loginuser").password("Abcd12!@"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/index")); // eller "/home" beroende på din setup
-    }*/
+                .andExpect(redirectedUrl("/index")); // eller "/home", beroende på säkerhetskonfiguration
+    }
+
+
+
+
+
 
 }
