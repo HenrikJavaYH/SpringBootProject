@@ -40,5 +40,11 @@ public class AppUserController {
         return "success";
     }
 
+    @GetMapping("/users")
+    public String listUsers(Model model) {
+        model.addAttribute("users", appUserService.findAll());
+        return "users"; // users.html
+    }
+
     //CONTROLLER VIEW PDF
 }
