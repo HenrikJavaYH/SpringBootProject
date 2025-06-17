@@ -22,6 +22,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.formLogin(Customizer.withDefaults());
+        http.formLogin(form -> form
+                .defaultSuccessUrl("/index", true) // ← viktigt!
+                .permitAll());
 
         http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated());
 

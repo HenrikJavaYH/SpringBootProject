@@ -7,6 +7,8 @@ import org.example.springproject.util.LoggingComponent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AppUserService {
 
@@ -29,7 +31,7 @@ public class AppUserService {
 
     public void deleteById(Long id) {
         if (!appUserRepository.existsById(id)) {
-            throw new UserNotFoundException("Användare med id " + id + " hittades inte.");
+            throw new UserNotFoundException(id);
         }
         AppUser user = appUserRepository.findById(id).orElseThrow();
         appUserRepository.deleteById(id);
@@ -47,6 +49,14 @@ public class AppUserService {
         user.setConsentGiven(dto.isConsentGiven());
         return user;
     }
+    public List<AppUser> getAll() {
+        return appUserRepository.findAll();
+    }
 
 
-}
+    }
+
+
+
+
+
